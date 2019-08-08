@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Dong Duc, DAO
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record id="email_template_announcement" model="mail.template">
+        <field name="name">Announcement: Send by email</field>
+        <field name="model_id" ref="web_announcement.model_announcement"/>
+        <field name="email_from">${user.email}</field>
+        <field name="partner_to">${object.get_list_email_addr()}</field>
+        <field name="subject">${object.popup_title}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    ${object.popup_message}
+                </p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2019 Dong Duc, DAO
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record id="default_announcement" model="announcement">
+        <field name="name">Welcome</field>
+        <field name="popup_title">Welcome</field>
+        <field name="popup_message">Welcome!!!</field>
+        <field name="notify_all_users">True</field>
+    </record>
+</odoo>

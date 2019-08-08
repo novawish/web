@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Dong Duc, DAO
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_announcement_form" model="ir.ui.view">
+        <field name="name">view.announcement.form</field>
+        <field name="model">announcement</field>
+        <field name="arch" type="xml">
+            <form string="Announcements">
+                <header>
+                    <button name="button_send_all" type="object" string="Send All" class="btn-primary"/>
+                    <button name="button_send_mail_notification" type="object" string="Send via email"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                            <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="popup_title"/>
+                            <field name="popup_message"/>
+                            <field name="notify_type"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="is_always_show"/>
+                            <field name="notify_all_users"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page name="user_list" string="List Users">
+                            <field name="user_ids"/>
+                        </page>
+                        <page name="group_list" string="List Groups">
+                            <field name="group_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_announcement_search" model="ir.ui.view">
+        <field name="name">view.announcement.search</field>
+        <field name="model">announcement</field>
+        <field name="arch" type="xml">
+            <search string="Announcements">
+                <field name="popup_title"/>
+                <field name="popup_message"/>
+                <separator/>
+                <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Notify All" name="notify_all" domain="[('notify_all_users', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="group_by_ntype" domain="[]" context="{'group_by':'notify_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_announcement_tree" model="ir.ui.view">
+        <field name="name">view.announcement.tree</field>
+        <field name="model">announcement</field>
+        <field name="arch" type="xml">
+            <tree string="Announcements">
+                <field name="name"/>
+                <field name="notify_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="is_always_show"/>
+                <field name="notify_all_users"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_announcement" model="ir.actions.act_window">
+        <field name="name">Announcements</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">announcement</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_action_announcement"
+        action="action_announcement" parent="base.menu_users" sequence="100"/>
+
+</odoo>
